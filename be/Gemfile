@@ -16,6 +16,7 @@ gem "grape-active_model_serializers"
 gem "jwt"
 gem "grape_on_rails_routes"
 gem "config"
+gem "foreman"
 
 group :development, :test do
   gem "pry-rails"
