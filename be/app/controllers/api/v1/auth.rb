@@ -21,7 +21,10 @@ module API
           if user&.valid_password? params[:password]
             represent_user_with_token user
           else
-            error! "Invalid email/password combination", 401
+            {
+              message: "Invalid email/password combination", 
+              code: 401
+            }
           end
         end
       end
