@@ -26,7 +26,6 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <Toastr />
       <div
         style={{
           margin: `0 auto`,
