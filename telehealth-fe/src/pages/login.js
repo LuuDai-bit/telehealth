@@ -2,6 +2,7 @@ import * as React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import "./login/login.scss";
 import { navigate } from "gatsby"
 
@@ -29,9 +30,10 @@ const Login = () => {
 
         navigate("/");
       }
+      toast.error(res.data.message);
     })
     .catch(error => {
-      console.log(error);
+      toast.error(error.message);
     })
   }
 
