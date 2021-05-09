@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_005018) do
+ActiveRecord::Schema.define(version: 2021_05_09_000856) do
 
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,11 +44,19 @@ ActiveRecord::Schema.define(version: 2021_05_01_005018) do
     t.string "user_name", null: false
     t.string "name"
     t.string "mobile"
-    t.string "password_digest"
-    t.integer "role", null: false
+    t.integer "role", default: 1, null: false
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "video_categories", charset: "utf8", force: :cascade do |t|

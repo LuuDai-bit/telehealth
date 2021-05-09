@@ -1,11 +1,12 @@
-import * as React from "react"
+import * as React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Axios from "axios";
 import "./login/login.scss";
-import { Link } from "gatsby"
+import { navigate } from "gatsby"
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
+import SEO from "../components/seo";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -17,6 +18,21 @@ const Login = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    const user = {
+      email: email,
+      password: password
+    }
+    Axios.post(`/api/v1/auth/login`, user)
+    .then(res => {
+      if(res.data.jwt_token) {
+        console.log("Redirecting...");
+
+        navigate("/");
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 
   return (

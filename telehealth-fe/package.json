@@ -7,6 +7,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "gatsby": "^3.2.1",
     "gatsby-plugin-gatsby-cloud": "^2.2.0",
@@ -29,7 +30,8 @@
     "react-helmet": "^6.1.0",
     "react-player": "^2.9.0",
     "sass": "^1.32.11",
-    "sass-loader": "^11.0.1"
+    "sass-loader": "^11.0.1",
+    "sharp": "^0.28.1"
   },
   "devDependencies": {
     "prettier": "2.2.1"
@@ -54,5 +56,5 @@
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
-  "proxy": "http://localhost:8000/"
+  "proxy": "http://localhost:8000"
 }

@@ -17,6 +17,7 @@ gem "jwt"
 gem "grape_on_rails_routes"
 gem "config"
 gem "foreman"
+gem "devise"
 
 group :development, :test do
   gem "pry-rails"

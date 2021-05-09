@@ -3,6 +3,10 @@ module.exports = {
     title: `Teleheath`,
     author: `@gatsbyjs`,
   },
+  proxy: {
+    prefix: '/api',
+    url: 'http://localhost:8000'
+  },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,

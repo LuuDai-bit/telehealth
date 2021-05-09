@@ -16,7 +16,7 @@ module API
           requires :password
         end
 
-        post "/sign_in" do
+        post "/login" do
           user = User.find_by email: params[:email]
           if user&.valid_password? params[:password]
             represent_user_with_token user
