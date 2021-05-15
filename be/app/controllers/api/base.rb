@@ -1,5 +1,8 @@
 module API
   class Base < Grape::API
-    mount API::V1::Base
+    error_formatter :json, API::ErrorFormatter
+    mount API::V1::Auth
+    mount API::V1::Users
+    mount API::V1::Videos
   end
 end
