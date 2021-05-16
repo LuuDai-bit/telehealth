@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_09_000856) do
+ActiveRecord::Schema.define(version: 2021_05_16_110409) do
 
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 2021_05_09_000856) do
   end
 
   create_table "sequences", charset: "utf8", force: :cascade do |t|
-    t.string "result"
-    t.string "original_result", null: false
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
+    t.text "result"
+    t.text "original_result", null: false
+    t.string "start_at", null: false
+    t.string "end_at", null: false
     t.bigint "video_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -70,12 +70,18 @@ ActiveRecord::Schema.define(version: 2021_05_09_000856) do
 
   create_table "videos", charset: "utf8", force: :cascade do |t|
     t.string "title", null: false
-    t.string "length"
-    t.string "file_name", null: false
     t.datetime "deleted_at"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "consultant"
+    t.string "chairman"
+    t.string "mediaFormat"
+    t.string "duration"
+    t.integer "videoSize"
+    t.integer "audioSize"
+    t.integer "venue"
+    t.string "code"
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
