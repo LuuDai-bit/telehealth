@@ -1,11 +1,11 @@
 import * as React from "react"
 
 import Layout from "../components/layout"
-import ResponsivePlayer from "../components/video/ResponsivePlayer"
+import VideoList from "../components/video-list/VideoList"
 
 const IndexPage = () => (
   <Layout>
-    <ResponsivePlayer />
+    <VideoList />
   </Layout>
 )
 

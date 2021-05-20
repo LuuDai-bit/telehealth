@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react"
 import ReactPlayer from "react-player"
-import "./responsive-player.css"
+
+import "./responsive-player.scss"
 
 class ResponsivePlayer extends React.Component {
   render () {
