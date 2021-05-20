@@ -3,9 +3,10 @@ import * as React from "react"
 import Layout from "../components/layout"
 import ResponsivePlayer from "../components/video/ResponsivePlayer"
 
-const VideoPage = () => (
+const VideoPage = ({ location }) => (
   <Layout>
-    <ResponsivePlayer />
+    <p>{location.state.code}</p>
+    <ResponsivePlayer code={location.state.code}/>
   </Layout>
 )
 
