@@ -1,41 +1,47 @@
 import React, { useRef, useState } from "react"
 
-import "./video-list.scss"
+import VideoCard from './video-card/VideoCard';
+import "./video-list.scss";
 import Axios from "axios";
-import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 class VideoList extends React.Component {
   state = {
-    vides: 'not yet',
+    videos: [],
   };
+
   getVideos = () => {
-    Axios.get('api/v1/videos/1/25')
+    Axios.get('api/v1/videos/1/10')
       .then((response) => {
-        const videos = response.data;
-        const listLiVideos = [];
-        // this.setState({
-        //   videos: response.data
-        // })
-        videos.forEach(video => listLiVideos.push(<li>{video.title}</li>));
         this.setState({
-          videos: listLiVideos
+          videos: response.data
         })
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.message);
       });
   };
+
   componentDidMount() {
     this.getVideos();
   }
 
   render () {
-    const listLiVideos = this.state.videos
+    const ListVideos = this.state.videos
     return (
-      <div>
-        <ul>
-          {listLiVideos}
-        </ul>
+      <div className="container">
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-9">
+            <ul>
+              {
+                ListVideos.map((video) => {
+                  return (<VideoCard key={video.id} video={video}/>)
+                })
+              }
+            </ul>
+          </div>
+        </div>
       </div>
     )
   }
