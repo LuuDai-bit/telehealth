@@ -12,12 +12,14 @@ class VideoCard extends React.Component {
             <div class="card">
               <div class="card-horizontal">
                 <div class="img-square-wrapper">
-                  <Link to="/video" state={{code: this.props.video.code}}>
+                  <Link to="/video" state={{code: this.props.video.code, title: this.props.video.title}}>
                     <img src="images/not-found-image.jpg" class="card-image" />
                   </Link>
                 </div>
                 <div class="card-body">
-                  <Link to="/video" state={{code: this.props.video.code}}>{this.props.video.title}</Link>
+                  <Link to="/video" state={{code: this.props.video.code, title: this.props.video.title}}>
+                    {this.props.video.title}
+                  </Link>
                   <p class="card-text">{this.props.video.code}</p>
                 </div>
               </div>
