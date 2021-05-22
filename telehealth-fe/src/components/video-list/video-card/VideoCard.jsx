@@ -17,7 +17,10 @@ class VideoCard extends React.Component {
                   </Link>
                 </div>
                 <div class="card-body">
-                  <Link to="/video" state={{code: this.props.video.code, title: this.props.video.title}}>
+                  <Link to="/video" state={{
+                      code: this.props.video.code, 
+                      title: this.props.video.title,
+                    }}>
                     {this.props.video.title}
                   </Link>
                   <p class="card-text">{this.props.video.code}</p>
