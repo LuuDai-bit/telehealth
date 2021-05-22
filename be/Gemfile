@@ -19,6 +19,7 @@ gem "config"
 gem "foreman"
 gem "devise"
 gem "kaminari"
+gem "searchkick"
 
 group :development, :test do
   gem "pry-rails"
