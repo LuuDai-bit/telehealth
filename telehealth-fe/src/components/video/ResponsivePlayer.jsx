@@ -6,7 +6,7 @@ import "./responsive-player.scss";
 
 class ResponsivePlayer extends React.Component {
   componentDidMount() {
-    if (this.props.time ) {
+    if (this.props.time) {
       const player = document.querySelector('#video-player');
       player.currentTime = this.props.time;
     }
