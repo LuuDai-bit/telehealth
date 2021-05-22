@@ -5,8 +5,8 @@ import ResponsivePlayer from "../components/video/ResponsivePlayer"
 
 const VideoPage = ({ location }) => (
   <Layout>
-    <p>{location.state.title}</p>
-    <ResponsivePlayer code={location.state.code}/>
+    <h2>{location.state.title}</h2>
+    <ResponsivePlayer code={location.state.code} time={location.state.time}/>
   </Layout>
 )
 
