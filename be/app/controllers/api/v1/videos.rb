@@ -43,7 +43,7 @@ module API
           end
           videos.each do |video|
             result = {
-              video_id: video.id,
+              video: video,
               sequences: sequences.select { |s| s.video_id == video.id }
             }
             results.push result
