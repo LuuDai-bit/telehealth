@@ -33,7 +33,7 @@ module API
 
           sequences = Sequence.search params[:content], 
                                       fields: [:result], 
-                                      select: [:result, :video_id]
+                                      select: [:result, :video_id, :start_at, :end_at]
           start_record = page * per + 1
           end_record = (page + 1 ) * per
           video_ids = sequences.each.pluck(:video_id).uniq[start_record..end_record]
@@ -44,7 +44,7 @@ module API
           videos.each do |video|
             result = {
               video_id: video.id,
-              sequences: sequences.select { |s| s.video_id == video.id }.pluck(:result)
+              sequences: sequences.select { |s| s.video_id == video.id }
             }
             results.push result
           end
