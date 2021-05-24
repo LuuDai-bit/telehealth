@@ -1,21 +1,21 @@
 import React, { useRef, useState } from "react"
 
 import VideoCard from './video-card/VideoCard';
-import "./video-list.scss";
 import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import SearchInput from '../search-input/SearchInput';
 
-class VideoList extends React.Component {
+class SearchResult extends React.Component {
   state = {
-    videos: [],
+    data: [],
   };
 
   getVideos = () => {
-    Axios.get('api/v1/videos/1/10')
+    Axios.post('api/v1/videos/search/1/10', {
+      "content": this.props.searchValue
+    })
       .then((response) => {
         this.setState({
-          videos: response.data
+          data: response.data
         })
       })
       .catch(function (error) {
@@ -28,17 +28,16 @@ class VideoList extends React.Component {
   }
 
   render () {
-    const ListVideos = this.state.videos
+    const ListDatas = this.state.data
     return (
       <div className="container">
-        <SearchInput />
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-9">
             <ul>
               {
-                ListVideos.map((video) => {
-                  return (<VideoCard key={video.id} video={video}/>)
+                ListDatas.map((data) => {
+                  return (<VideoCard key={data.id} data={data}/>)
                 })
               }
             </ul>
@@ -50,4 +49,4 @@ class VideoList extends React.Component {
   
 }
 
-export default VideoList;
+export default SearchResult;
