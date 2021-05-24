@@ -15,9 +15,10 @@ class ResponsivePlayer extends React.Component {
   render () {
     return (
       <div className="player-wrapper">
+        <p>{this.props.code}</p>
         <video className="react-player" id="video-player" controls>
           <source src={`http://27.72.147.196:36705/secured/ws/rest/v1/async/media/${this.props.code}/stream`}></source>
-          <track label="English" kind="subtitles" srclang="en" src="subs/test_vtt.en.vtt" default></track>
+          <track label="English" kind="subtitles" srclang="en" src={`subcription/${this.props.code}.vtt`} default></track>
         </video>
       </div>
     )
