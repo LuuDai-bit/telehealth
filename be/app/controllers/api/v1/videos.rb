@@ -13,6 +13,11 @@ module API
           Video.page(params[:page]).per params[:per]
         end
 
+        desc "Return total videos"
+        get "total", root: :videos do 
+          Video.count
+        end
+
         desc "Return a video"
         params do
           requires :id, type: String, desc: "ID of the video"
@@ -36,6 +41,7 @@ module API
                                       select: [:result, :video_id, :start_at, :end_at]
           start_record = page * per + 1
           end_record = (page + 1 ) * per
+          total_video = sequences.each.pluck(:video_id).uniq.length
           video_ids = sequences.each.pluck(:video_id).uniq[start_record..end_record]
           videos = Video.where id: video_ids
           if params[:code]
@@ -49,7 +55,12 @@ module API
             results.push result
           end
           
-          results
+          {
+            result: results,
+            total: total_video,
+            total_sequences: sequences.total_count,
+            time: sequences.took
+          }
         end
       end
     end
