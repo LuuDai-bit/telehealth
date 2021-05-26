@@ -18,7 +18,6 @@ class Pagination extends React.Component {
       this.setState({
         pages: pages
       })
-      console.log(nextProps.pages)
     }
   }
 

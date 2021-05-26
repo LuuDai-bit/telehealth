@@ -1,28 +1,27 @@
 import React, {Component} from 'react';
 import {MenuItems} from './MenuItems';
+import { Link, navigate } from "gatsby";
+
 import './header.scss';
 
 class Header extends Component {
   state = { clicked: false }
 
   handleClick = () => {
-    this.setState({clicked: !this.state.clicked})
+    navigate('/');
   }
 
   render() {
     return(
       <nav className="navbar-items">
-        <h1 className="navbar-logo">Telehealth <i className="fab fa-react"></i></h1>
-        <div className="menu-icon" onClick={this.handleClick}>
-          <i className={this.state.clicked ? 'fas fa-times': 'fas fa-bars'}></i>
-        </div>
+        <h1 className="navbar-logo" onClick={this.handleClick}>Telehealth <i className="fab fa-react"></i></h1>
         <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
           {MenuItems.map((item, index) => {
             return (
               <li>
-                <a className={item.cName} href={item.url}>
+                <Link key={index} className={item.cName} to={item.url}>
                   {item.title}
-                </a>
+                </Link>
               </li>
             )
           })}

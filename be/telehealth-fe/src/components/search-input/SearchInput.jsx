@@ -16,13 +16,13 @@ class SearchInput extends React.Component {
 
   render() {
     return (
-      <div className="input-group custom-search">
+      <div className="input-group custom-search w-100 d-inline">
         <div className="form-outline">
-          <input type="search" id="#search" className="form-control" />
+          <input type="search" id="#search" className="form-control search-input" placeholder="Tìm kiếm nội dung" />
+          <button type="button" className="btn btn-primary search-button" onClick={this.search}>
+            Tìm kiếm
+          </button>
         </div>
-        <button type="button" className="btn btn-primary" onClick={this.search}>
-          Tìm kiếm
-        </button>
       </div>
     )
   }

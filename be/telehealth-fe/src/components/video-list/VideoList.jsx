@@ -60,7 +60,7 @@ class VideoList extends React.Component {
             <SearchInput />
           </div>
           <div className="col-md-12">
-            <p>Trang: {this.state.page}</p>
+            <h2>Danh sách video (Trang: {this.state.page})</h2>
           </div>
           <div className="col-md-12">
             <ul>

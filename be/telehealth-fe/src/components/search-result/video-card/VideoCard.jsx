@@ -3,6 +3,8 @@ import Sequence from './sequence/Sequence';
 import { Link } from "gatsby";
 import formatDate from '../../common/date-time.js'
 
+import '../../video-list/video-card/video-card.scss';
+
 class VideoCard extends React.Component {
   render () {
     return (
@@ -13,16 +15,18 @@ class VideoCard extends React.Component {
               <div class="card-horizontal">
                 <div class="img-square-wrapper">
                   <Link to="/video" state={{code: this.props.data.video.code, title: this.props.data.video.title}}>
-                    <img src="images/not-found-image.jpg" class="card-image" />
+                    <img src="images/anh_nen.jpg" class="card-image" />
                   </Link>
                 </div>
                 <div class="card-body">
-                  <Link to="/video" state={{
-                      code: this.props.data.video.code, 
-                      title: this.props.data.video.title,
-                    }}>
-                    {this.props.data.video.title}
-                  </Link>
+                  <h4>
+                    <Link to="/video" state={{
+                        code: this.props.data.video.code, 
+                        title: this.props.data.video.title,
+                      }}>
+                      {this.props.data.video.title}
+                    </Link>
+                  </h4>
                   {
                     this.props.data.sequences.map((sequence) => {
                       return (
@@ -37,7 +41,7 @@ class VideoCard extends React.Component {
                 </div>
               </div>
               <div class="card-footer">
-                <small class="text-muted">{formatDate(this.props.data.video.updated_at)}</small>
+                <small class="text-muted">Được cập nhật vào: {formatDate(this.props.data.video.updated_at)}</small>
               </div>
             </div>
           </div>
