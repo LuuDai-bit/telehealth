@@ -13,7 +13,9 @@ class VideoList extends React.Component {
     this.state = {
       videos: [],
       page: 1,
+      total: 0,
     };
+    this.getTotalVideo();
   }
   
   getVideos = (page=1) => {
@@ -29,6 +31,18 @@ class VideoList extends React.Component {
         toast.error(error.message);
       });
   };
+
+  getTotalVideo = () => {
+    Axios.get('api/v1/videos/total')
+      .then((response) => {
+        this.setState({
+          total: response.data,
+        });
+      })
+      .catch(function (error) {
+        toast.error(error.message);
+      });
+  }
 
   updateVideos = (redirected_page) => {
     this.getVideos(redirected_page);
@@ -46,7 +60,6 @@ class VideoList extends React.Component {
             <SearchInput />
           </div>
           <div className="col-md-12">
-            <h2>Kết quả cho: {this.props.searchValue}</h2>
             <p>Trang: {this.state.page}</p>
           </div>
           <div className="col-md-12">
@@ -57,7 +70,10 @@ class VideoList extends React.Component {
                 })
               }
             </ul>
-            <Pagination parentCallback={this.updateVideos} page={this.state.page} />
+            <Pagination parentCallback={this.updateVideos} 
+                        page={this.state.page}
+                        total={this.state.total}
+            />
           </div>
         </div>
       </div>
