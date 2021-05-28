@@ -2,12 +2,14 @@ import * as React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "./login/login.scss";
 import { navigate } from "gatsby"
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+
+toast.configure()
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -26,8 +28,8 @@ const Login = () => {
     Axios.post(`/api/v1/auth/login`, user)
     .then(res => {
       if(res.data.jwt_token) {
-        console.log("Redirecting...");
-
+        localStorage.setItem('jwt', res.data.jwt_token);
+        console.log(res.data.jwt_token);
         navigate("/");
       }
       toast.error(res.data.message);

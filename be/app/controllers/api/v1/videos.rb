@@ -3,9 +3,9 @@ module API
     class Videos < Grape::API
       include API::V1::Defaults
 
-      # before do
-      #   authenticate_user!
-      # end
+      before do
+        authenticate_user!
+      end
 
       resource :videos do
         desc "Return all videos"
