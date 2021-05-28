@@ -19,7 +19,11 @@ class VideoList extends React.Component {
   }
   
   getVideos = (page=1) => {
-    Axios.get(`api/v1/videos/${page}/5`)
+    Axios.get(`api/v1/videos/${page}/5`, {
+      headers: {
+        'jwt-token': localStorage.getItem('jwt')
+      }
+    })
       .then((response) => {
         this.setState({
           videos: response.data,
@@ -33,7 +37,11 @@ class VideoList extends React.Component {
   };
 
   getTotalVideo = () => {
-    Axios.get('api/v1/videos/total')
+    Axios.get('api/v1/videos/total', {
+      headers: {
+        'jwt-token': localStorage.getItem('jwt')
+      }
+    })
       .then((response) => {
         this.setState({
           total: response.data,

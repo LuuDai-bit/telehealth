@@ -23,6 +23,10 @@ class SearchResult extends React.Component {
   getVideos = (page=1) => {
     Axios.post(`api/v1/videos/search/${page}/5`, {
       "content": this.props.searchValue
+    }, {
+      headers: {
+        'jwt-token': localStorage.getItem('jwt')
+      }
     })
       .then((response) => {
         this.setState({
