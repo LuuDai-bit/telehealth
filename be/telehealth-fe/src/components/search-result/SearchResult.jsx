@@ -16,13 +16,14 @@ class SearchResult extends React.Component {
       page: 1,
       total: 0,
       total_sequences: 0,
-      time: 0
+      time: 0,
+      searchValue: this.props.searchValue,
     }
   }
 
-  getVideos = (page=1) => {
+  getVideos = (page=1, searchValue='') => {
     Axios.post(`api/v1/videos/search/${page}/5`, {
-      "content": this.props.searchValue
+      "content": searchValue || this.props.searchValue || ''
     }, {
       headers: {
         'jwt-token': localStorage.getItem('jwt')
@@ -35,6 +36,7 @@ class SearchResult extends React.Component {
           total: response.data.total,
           total_sequences: response.data.total_sequences,
           time: response.data.time,
+          searchValue: searchValue || this.props.searchValue,
         });
         window.scrollTo(0, 0);
       })
@@ -43,7 +45,11 @@ class SearchResult extends React.Component {
       });
   };
 
-  updateVideos = (redirected_page) => {
+  updateVideos = (redirected_page, searchValue='') => {
+    if (searchValue) {
+      this.getVideos(1, searchValue);
+      return;
+    }
     this.getVideos(redirected_page);
   }
 
@@ -56,10 +62,10 @@ class SearchResult extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
-            <SearchInput />
+            <SearchInput searchPage={true} updateVideos={this.updateVideos} />
           </div>
           <div className="col-md-6">
-            <h2>Kết quả cho: {this.props.searchValue} (Trang: {this.state.page})</h2>
+            <h2>Kết quả cho: {this.state.searchValue} (Trang: {this.state.page})</h2>
           </div>
           <div className="col-md-6 right">
             <span className="info">Tổng cộng {this.state.total_sequences} câu trong {this.state.total} videos</span>
