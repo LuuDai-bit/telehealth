@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react"
+import React from "react"
 
 import VideoCard from './video-card/VideoCard';
 import "./video-list.scss";
 import Axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import SearchInput from '../search-input/SearchInput';
 import Pagination from '../pagination/Pagination';
 

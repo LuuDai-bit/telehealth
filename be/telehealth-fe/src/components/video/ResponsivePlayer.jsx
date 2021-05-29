@@ -1,6 +1,4 @@
-import React, { useRef, useState } from "react";
-import Axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
 
 import "./responsive-player.scss";
 
