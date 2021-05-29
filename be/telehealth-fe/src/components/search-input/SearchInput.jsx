@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Link, navigate } from "gatsby";
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
+import { navigate } from "gatsby";
+import { toast } from "react-toastify";
 
 import "./search-input.scss";
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,9 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
 class SearchInput extends React.Component {
-  search = (e) => {
+  search = () => {
     let searchValue = document.getElementById('#search').value;
-    if (searchValue) navigate('/search', {state: {searchValue: searchValue}});
+    if (searchValue && !this.props.searchPage) navigate('/search', {state: {searchValue: searchValue}});
+    else if (searchValue && this.props.searchPage) this.props.updateVideos(1, searchValue);
     else toast.error("Vui lòng điền vào ô search");
   }
 
