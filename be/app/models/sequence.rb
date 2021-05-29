@@ -1,5 +1,5 @@
 class Sequence < ApplicationRecord
-  searchkick
+  searchkick highlight: [:result]
 
   belongs_to :video
 end

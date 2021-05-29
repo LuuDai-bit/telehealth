@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Link } from "gatsby";
 
+import './sequence.scss';
+
 class Sequence extends React.Component {
   formatTime = (totalSecond) => {
     let hrs = ~~(totalSecond / 3600);
@@ -9,12 +11,17 @@ class Sequence extends React.Component {
 
     let ret = "";
     if (hrs > 0) {
-        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+      ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
     }
     ret += "" + mins + ":" + (secs < 10 ? "0" : "");
     ret += "" + secs;
     return ret;
   }
+
+  createMarkup = (sequence) => {
+    return {__html: sequence};
+  }
+  
   render() {
     return (
       <p className="card-text">
@@ -26,7 +33,7 @@ class Sequence extends React.Component {
             }
           }
         >
-          {this.formatTime(this.props.sequence.start_at)}: <q>{this.props.sequence.result}</q>
+          {this.formatTime(this.props.sequence.start_at)}: <span dangerouslySetInnerHTML={this.createMarkup(this.props.sequence.result)}></span>
         </Link>
       </p>
     )

@@ -38,7 +38,9 @@ module API
 
           sequences = Sequence.search params[:content], 
                                       fields: [:result], 
-                                      select: [:result, :video_id, :start_at, :end_at]
+                                      select: [:result, :video_id, :start_at, :end_at],
+                                      highlight: true,
+                                      highlight: { tag: "<strong class='highlight'>" }
           start_record = page * per + 1
           end_record = (page + 1 ) * per
           total_video = sequences.each.pluck(:video_id).uniq.length
@@ -50,7 +52,11 @@ module API
           videos.each do |video|
             result = {
               video: video,
-              sequences: sequences.select { |s| s.video_id == video.id }
+              sequences: sequences.with_highlights
+                                  .map { |s| {result: s[1][:result], 
+                                              start_at: s[0].start_at, 
+                                              end_at: s[0].end_at} if s[0].video_id.eql? video.id }
+                                  .compact
             }
             results.push result
           end
