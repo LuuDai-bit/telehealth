@@ -30,15 +30,26 @@ module API
         params do 
           requires :content, type: String, desc: "the subcription of the video"
           optional :code, type: String, desc: "the code of the video"
+          optional :length, type: String, desc: "the length of the video"
+          optional :category, type: String, desc: "the category of the video"
+          optional :created_date, type: String, desc: "the time video created"
         end
         post "/search/:page/:per", root: :videos do
           results = []
           page = params[:page].to_i
           per = params[:per].to_i
 
+          params[:category] = {} if params[:category].blank?
+          params[:length] = {} if params[:category].blank?
+          params[:created_at] = {} if params[:category].blank?
+
           sequences = Sequence.search params[:content], 
                                       fields: [:result], 
-                                      select: [:result, :video_id, :start_at, :end_at],
+                                      where: {
+                                        category: params[:category], 
+                                        length: params[:length],
+                                        created_at: params[:created_at]
+                                      },
                                       highlight: true,
                                       highlight: { tag: "<strong class='highlight'>" }
           start_record = page * per + 1
@@ -53,9 +64,9 @@ module API
             result = {
               video: video,
               sequences: sequences.with_highlights
-                                  .map { |s| {result: s[1][:result], 
-                                              start_at: s[0].start_at, 
-                                              end_at: s[0].end_at} if s[0].video_id.eql? video.id }
+                                  .map { |s| { result: s[1][:result], 
+                                               start_at: s[0].start_at, 
+                                               end_at: s[0].end_at} if s[0].video_id.eql? video.id }
                                   .compact
             }
             results.push result

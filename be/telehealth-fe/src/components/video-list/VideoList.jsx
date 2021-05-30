@@ -64,7 +64,7 @@ class VideoList extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 border border-secondary rounded">
             <SearchInput />
           </div>
           <div className="col-md-12">
