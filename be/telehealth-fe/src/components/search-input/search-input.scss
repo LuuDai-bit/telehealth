@@ -10,3 +10,13 @@
 .form-outline {
   display: flex;
 }
+
+.custom-flex { 
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.gap { 
+  width: 60px;
+}

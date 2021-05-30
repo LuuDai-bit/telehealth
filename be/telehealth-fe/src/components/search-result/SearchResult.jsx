@@ -17,13 +17,22 @@ class SearchResult extends React.Component {
       total: 0,
       total_sequences: 0,
       time: 0,
-      searchValue: this.props.searchValue,
+      searchValue: this.props.searchValue || "",
+      created_at_start: this.props.created_at_start || "",
+      created_at_end: this.props.created_at_end || "",
+      category: this.props.category || "",
+      length: this.props.length || ""
     }
   }
 
   getVideos = (page=1, searchValue='') => {
+    console.log(searchValue || this.state.searchValue || '')
     Axios.post(`api/v1/videos/search/${page}/5`, {
-      "content": searchValue || this.props.searchValue || ''
+      "content": searchValue || this.state.searchValue || '',
+      "created_at_start": this.state.created_at_start,
+      "created_at_end": this.state.created_at_end,
+      "category": this.state.category,
+      "length": this.state.length
     }, {
       headers: {
         'jwt-token': localStorage.getItem('jwt')
@@ -36,7 +45,7 @@ class SearchResult extends React.Component {
           total: response.data.total,
           total_sequences: response.data.total_sequences,
           time: response.data.time,
-          searchValue: searchValue || this.props.searchValue,
+          searchValue: searchValue || this.state.searchValue,
         });
         window.scrollTo(0, 0);
       })
@@ -61,7 +70,7 @@ class SearchResult extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 border border-secondary rounded">
             <SearchInput searchPage={true} updateVideos={this.updateVideos} />
           </div>
           <div className="col-md-6">
