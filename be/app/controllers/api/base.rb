@@ -4,5 +4,6 @@ module API
     mount API::V1::Auth
     mount API::V1::Users
     mount API::V1::Videos
+    mount API::V1::Categories
   end
 end
