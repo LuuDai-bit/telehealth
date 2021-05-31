@@ -20,7 +20,7 @@ gem "foreman"
 gem "devise"
 gem "kaminari"
 gem "searchkick"
-gem "figaro"
+gem "config"
 
 group :development, :test do
   gem "pry-rails"

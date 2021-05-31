@@ -10,7 +10,7 @@ module API
       resource :users do
         desc "Return all users"
         get ":page/:per", root: :users do
-          User.includes(:user_detail).page(params[:page]).per params[:per]
+          User.page(params[:page]).per params[:per]
         end
 
         desc "Return a user"

@@ -1,6 +1,7 @@
 import React from "react";
 import { navigate } from "gatsby";
 import { toast } from "react-toastify";
+import Axios from "axios";
 
 import "./search-input.scss";
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,12 +9,16 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
 class SearchInput extends React.Component {
-  search = () => {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      categories: []
+    }
+  }
+
+  search = (length='', created_at_start='', created_at_end='', category='') => {
     let content = document.getElementById('#content').value;
-    let created_at_start = document.getElementById('#created_at_start').value;
-    let created_at_end = document.getElementById('#created_at_end').value;
-    let category = document.getElementById('#category').value;
-    let length = document.getElementById('#length').value;
     
     if (this.checkBlank(content, created_at_start, created_at_end, category, length) && !this.props.searchPage) 
       navigate('/search', {state: {
@@ -32,6 +37,31 @@ class SearchInput extends React.Component {
     return content || (created_at_end && created_at_start) || category || length;
   }
 
+  getCategories = () => {
+    Axios.get(`api/v1/categories`, {
+      headers: {
+        'jwt-token': localStorage.getItem('jwt')
+      }
+    })
+      .then((response) => {
+        this.setState({
+          categories: response.data
+        });
+        this.forceUpdate();
+      })
+      .catch(function (error) {
+        toast.error(error.message);
+      });
+  }
+
+  componentDidMount() {
+    this.getCategories()
+  }
+
+  handleLengthChange(event){
+    this.search(event.target.value);
+  }
+
   render() {
     return (
       <div className="input-group custom-search w-100 d-inline">
@@ -47,26 +77,33 @@ class SearchInput extends React.Component {
             <lablel>Chủ đề</lablel>
             <select id="#category" className="form-control" aria-label="Default select example">
               <option value="" selected>Chọn chủ đề</option>
-              <option value="1">Nội khoa</option>
-              <option value="2">Ngoại khoa</option>
-              <option value="3">Nha khoa</option>
+              {
+                this.state.categories.map((category) => {
+                  return <option key={category.id} value={category.id}>{category.name}</option>
+                })
+              }
             </select>
           </div>
           <div className="col-md-6">
             <lablel>Thời lượng</lablel>
-            <select id="#length" className="form-control" aria-label="Default select example">
-              <option value="" selected>Chọn khoảng thời gian</option>
-              <option value="1">Dưới 30 phút</option>
-              <option value="2">Từ 1 giờ tới 2 giờ</option>
-              <option value="3">Trên 2 giờ </option>
+            <select id="#length" 
+                    className="form-control" 
+                    aria-label="Default select example" 
+                    value={this.state.length}
+                    onChange={this.handleLengthChange.bind(this)}
+            >
+              <option value="">Chọn khoảng thời gian</option>
+              <option value="short">Dưới 60 phút</option>
+              <option value="medium">Từ 1 giờ tới 2 giờ</option>
+              <option value="long">Trên 2 giờ </option>
             </select>
           </div>
           <div className="col-md-12">
             <lablel>Ngày tạo</lablel>
             <div className="custom-flex">
               <select id="#created_at_start" className="form-control" aria-label="Default select example">
-                <option value="" selected>Từ ngày</option>
-                <option value="1">Dưới 30 phút</option>
+                <option value="">Từ ngày</option>
+                <option value="1">Dưới 60 phút</option>
                 <option value="2">Từ 1 giờ tới 2 giờ</option>
                 <option value="3">Trên 2 giờ </option>
               </select>
@@ -74,8 +111,8 @@ class SearchInput extends React.Component {
                 <p><i className='fas fa-arrow-alt-circle-right'></i></p>
               </div>
               <select id="#created_at_end" className="form-control" aria-label="Default select example">
-                <option value="" selected>Tới ngày</option>
-                <option value="1">Dưới 30 phút</option>
+                <option value="">Tới ngày</option>
+                <option value="1">Dưới 60 phút</option>
                 <option value="2">Từ 1 giờ tới 2 giờ</option>
                 <option value="3">Trên 2 giờ </option>
               </select>

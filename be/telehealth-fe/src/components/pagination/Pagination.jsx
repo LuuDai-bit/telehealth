@@ -54,7 +54,7 @@ class Pagination extends React.Component {
             {
               [...Array(this.state.pages).keys()].map(val => {
                 return (
-                  <li className={"page-item " + this.isOnThisPage(val+1)}>
+                  <li key={val} className={"page-item " + this.isOnThisPage(val+1)}>
                     <button className="page-link" onClick={(event) => this.redirect(event, val+1)}>{val+1}</button>
                   </li>
                 );
