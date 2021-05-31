@@ -1,6 +1,7 @@
 import React from "react";
 import { navigate } from "gatsby";
 import { toast } from "react-toastify";
+import Axios from "axios";
 
 import "./search-input.scss";
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 
 class SearchInput extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      categories: []
+    }
+  }
+
   search = () => {
     let content = document.getElementById('#content').value;
     let created_at_start = document.getElementById('#created_at_start').value;
@@ -32,6 +41,27 @@ class SearchInput extends React.Component {
     return content || (created_at_end && created_at_start) || category || length;
   }
 
+  getCategories = () => {
+    Axios.get(`api/v1/categories`, {
+      headers: {
+        'jwt-token': localStorage.getItem('jwt')
+      }
+    })
+      .then((response) => {
+        this.setState({
+          categories: response.data
+        });
+        this.forceUpdate();
+      })
+      .catch(function (error) {
+        toast.error(error.message);
+      });
+  }
+
+  componentDidMount() {
+    this.getCategories()
+  }
+
   render() {
     return (
       <div className="input-group custom-search w-100 d-inline">
@@ -47,9 +77,11 @@ class SearchInput extends React.Component {
             <lablel>Chủ đề</lablel>
             <select id="#category" className="form-control" aria-label="Default select example">
               <option value="" selected>Chọn chủ đề</option>
-              <option value="1">Nội khoa</option>
-              <option value="2">Ngoại khoa</option>
-              <option value="3">Nha khoa</option>
+              {
+                this.state.categories.map((category) => {
+                  return <option key={category.id} value={category.id}>{category.name}</option>
+                })
+              }
             </select>
           </div>
           <div className="col-md-6">
