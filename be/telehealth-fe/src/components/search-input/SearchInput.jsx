@@ -13,13 +13,13 @@ class SearchInput extends React.Component {
     super(props);
 
     this.state = {
-      categories: []
+      categories: [],
+      duration: ""
     }
   }
 
   search = (duration='', created_at_start='', created_at_end='', category='') => {
     let content = document.getElementById('#content').value;
-    console.log(this.checkBlank(content, created_at_start, created_at_end, category, duration));
     if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && !this.props.searchPage) 
       navigate('/search', {state: {
         searchValue: content,
@@ -59,6 +59,9 @@ class SearchInput extends React.Component {
   }
 
   handleLengthChange(event){
+    this.setState({
+      duration: event.target.value
+    });
     this.search(event.target.value);
   }
 
@@ -89,7 +92,7 @@ class SearchInput extends React.Component {
             <select id="#length" 
                     className="form-control" 
                     aria-label="Default select example" 
-                    value=""
+                    value={this.state.duration}
                     onChange={this.handleLengthChange.bind(this)}
             >
               <option value="">Chọn khoảng thời gian</option>
