@@ -17,24 +17,24 @@ class SearchInput extends React.Component {
     }
   }
 
-  search = (length='', created_at_start='', created_at_end='', category='') => {
+  search = (duration='', created_at_start='', created_at_end='', category='') => {
     let content = document.getElementById('#content').value;
-    
-    if (this.checkBlank(content, created_at_start, created_at_end, category, length) && !this.props.searchPage) 
+    console.log(this.checkBlank(content, created_at_start, created_at_end, category, duration));
+    if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && !this.props.searchPage) 
       navigate('/search', {state: {
         searchValue: content,
         created_at_start: created_at_start, 
         created_at_end: created_at_end,
         category: category, 
-        length: length
+        length: duration,
       }});
-    else if (this.checkBlank(content, created_at_start, created_at_end, category, length) && this.props.searchPage) 
-      this.props.updateVideos(1, content, created_at_start, created_at_end, category, length);
+    else if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && this.props.searchPage) 
+      this.props.updateVideos(1, content, created_at_start, created_at_end, category, duration);
     else toast.error("Vui lòng điền vào ô search");
   }
 
   checkBlank = (content, created_at_start, created_at_end, category, length) => {
-    return content || (created_at_end && created_at_start) || category || length;
+    return !!(content || (created_at_end && created_at_start) || category || length);
   }
 
   getCategories = () => {
@@ -89,7 +89,7 @@ class SearchInput extends React.Component {
             <select id="#length" 
                     className="form-control" 
                     aria-label="Default select example" 
-                    value={this.state.length}
+                    value=""
                     onChange={this.handleLengthChange.bind(this)}
             >
               <option value="">Chọn khoảng thời gian</option>
