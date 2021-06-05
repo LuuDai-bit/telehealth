@@ -101,26 +101,6 @@ class SearchInput extends React.Component {
               <option value="long">Trên 2 giờ </option>
             </select>
           </div>
-          <div className="col-md-12">
-            <lablel>Ngày tạo</lablel>
-            <div className="custom-flex">
-              <select id="#created_at_start" className="form-control" aria-label="Default select example">
-                <option value="">Từ ngày</option>
-                <option value="1">Dưới 60 phút</option>
-                <option value="2">Từ 1 giờ tới 2 giờ</option>
-                <option value="3">Trên 2 giờ </option>
-              </select>
-              <div className="gap">
-                <p><i className='fas fa-arrow-alt-circle-right'></i></p>
-              </div>
-              <select id="#created_at_end" className="form-control" aria-label="Default select example">
-                <option value="">Tới ngày</option>
-                <option value="1">Dưới 60 phút</option>
-                <option value="2">Từ 1 giờ tới 2 giờ</option>
-                <option value="3">Trên 2 giờ </option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     )
