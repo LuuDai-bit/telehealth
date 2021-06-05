@@ -21,6 +21,14 @@
   width: auto;
 }
 
-.inline-input { 
-  display: inline-block;
+.datepicker-group {
+  width: 100%;
+  display: inline;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+  display: inline;
+  width: 50%;
 }

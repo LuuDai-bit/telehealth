@@ -139,23 +139,20 @@ class SearchInput extends React.Component {
           </div>
           <div className="col-md-12">
             <lablel>Ngày tạo</lablel>
-            <div>
+          </div>
+          <div className="col-md-12 datepicker-group">
+            <div className="datepicker-group">
               <DatePicker
-                selected={ this.state.created_at_start }
-                onChange={ this.handleCreatedAtStartChange }
+                selected={this.state.created_at_start}
+                onChange={this.handleCreatedAtStartChange}
                 name="startDate"
                 dateFormat="dd/MM/yyyy"
-                className="inline-input"
               />
-              <div className="gap inline-input">
-                <p><i className='fas fa-arrow-alt-circle-right'></i></p>
-              </div>
               <DatePicker
-                selected={ this.state.created_at_end }
-                onChange={ this.handleCreatedAtEndChange }
+                selected={this.state.created_at_end}
+                onChange={this.handleCreatedAtEndChange}
                 name="startDate"
                 dateFormat="dd/MM/yyyy"
-                className="inline-input"
               />
             </div>
           </div>
