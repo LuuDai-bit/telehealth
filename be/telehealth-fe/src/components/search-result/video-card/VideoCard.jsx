@@ -8,17 +8,17 @@ import '../../video-list/video-card/video-card.scss';
 class VideoCard extends React.Component {
   render () {
     return (
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12 mt-3">
-            <div class="card">
-              <div class="card-horizontal">
-                <div class="img-square-wrapper">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12 mt-3">
+            <div className="card">
+              <div className="card-horizontal">
+                <div className="img-square-wrapper">
                   <Link to="/video" state={{code: this.props.data.video.code, title: this.props.data.video.title}}>
-                    <img src="images/anh_nen.jpg" class="card-image" />
+                    <img src="images/anh_nen.jpg" className="card-image" />
                   </Link>
                 </div>
-                <div class="card-body">
+                <div className="card-body">
                   <h4>
                     <Link to="/video" state={{
                         code: this.props.data.video.code, 
@@ -40,8 +40,8 @@ class VideoCard extends React.Component {
                   }
                 </div>
               </div>
-              <div class="card-footer">
-                <small class="text-muted">Được cập nhật vào: {formatDate(this.props.data.video.updated_at)}</small>
+              <div className="card-footer">
+                <small className="text-muted">Được cập nhật vào: {formatDate(this.props.data.video.updated_at)}</small>
               </div>
             </div>
           </div>

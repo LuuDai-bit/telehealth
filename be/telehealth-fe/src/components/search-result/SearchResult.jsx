@@ -26,7 +26,6 @@ class SearchResult extends React.Component {
   }
 
   getVideos = (page=1, searchValue='') => {
-    console.log(searchValue || this.state.searchValue || '')
     Axios.post(`api/v1/videos/search/${page}/5`, {
       "content": searchValue || this.state.searchValue || '',
       "created_at_start": this.state.created_at_start,
@@ -54,7 +53,7 @@ class SearchResult extends React.Component {
       });
   };
 
-  updateVideos = (redirected_page, searchValue='') => {
+  updateVideos = (redirected_page, searchValue='', created_at_start='', created_at_end='', category='', length='') => {
     if (searchValue) {
       this.getVideos(1, searchValue);
       return;

@@ -19,7 +19,7 @@ class Header extends Component {
           {MenuItems.map((item, index) => {
             return (
               <li>
-                <Link key={index} className={item.cName} to={item.url}>
+                <Link key={'header'+index} className={item.cName} to={item.url}>
                   {item.title}
                 </Link>
               </li>

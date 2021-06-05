@@ -14,7 +14,7 @@ class VideoCard extends React.Component {
               <div className="card-horizontal">
                 <div className="img-square-wrapper">
                   <Link to="/video" state={{code: this.props.video.code, title: this.props.video.title}}>
-                    <img src="images/anh_nen.jpg" class="card-image" />
+                    <img src="images/anh_nen.jpg" className="card-image" />
                   </Link>
                 </div>
                 <div className="card-body">
