@@ -30,7 +30,7 @@ module API
         params do 
           requires :content, type: String, desc: "the subcription of the video"
           optional :code, type: String, desc: "the code of the video"
-          optional :length, type: String, desc: "the length of the video"
+          optional :duration, type: String, desc: "the length of the video"
           optional :category, type: String, desc: "the category of the video"
           optional :created_at_start, type: String, desc: "the time video created start"
           optional :created_at_end, type: String, desc: "the time video created end"
@@ -39,10 +39,10 @@ module API
           results = []
           page = params[:page].to_i
           per = params[:per].to_i
-          
+          # byebug
           if params[:length].present?
-            min_duration = Settings.filter.duration[params[:length]].start * 60
-            max_duration = Settings.filter.duration[params[:length]].end * 60
+            min_duration = Settings.filter.duration[params[:duration]].start * 60
+            max_duration = Settings.filter.duration[params[:duration]].end * 60
           else
             min_duration = ""
             max_duration = ""
@@ -59,7 +59,7 @@ module API
           video_ids = sequences.each.pluck(:video_id).uniq[start_record..end_record]
           videos = Video.with_ids(video_ids)
                         .with_duration(min_duration, max_duration)
-                        # .with_created_at(created_at_start, created_at_end)
+                        .with_created_at params[:created_at_start], params[:created_at_end]
           if params[:code]
             videos.unshift Video.find_by code: params[:code]
           end

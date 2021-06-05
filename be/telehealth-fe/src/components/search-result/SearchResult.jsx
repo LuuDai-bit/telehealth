@@ -17,21 +17,21 @@ class SearchResult extends React.Component {
       total: 0,
       total_sequences: 0,
       time: 0,
-      searchValue: this.props.searchValue || "",
+      content: this.props.content || "",
       created_at_start: this.props.created_at_start || "",
       created_at_end: this.props.created_at_end || "",
       category: this.props.category || "",
-      length: this.props.length || ""
+      duration: this.props.duration || ""
     }
   }
 
-  getVideos = (page=1, searchValue='', created_at_start='', created_at_end='', category='', length='') => {
+  getVideos = (page=1, content='', created_at_start='', created_at_end='', category='', duration='') => {
     Axios.post(`api/v1/videos/search/${page}/5`, {
-      "content": searchValue || this.state.searchValue || '',
+      "content": content || this.state.content || '',
       "created_at_start": created_at_start || this.state.created_at_start,
       "created_at_end": created_at_end || this.state.created_at_end,
       "category": category || this.state.category,
-      "length": length || this.state.length
+      "duration": duration || this.state.duration
     }, {
       headers: {
         'jwt-token': localStorage.getItem('jwt')
@@ -44,7 +44,7 @@ class SearchResult extends React.Component {
           total: response.data.total,
           total_sequences: response.data.total_sequences,
           time: response.data.time,
-          searchValue: searchValue || this.state.searchValue,
+          content: content || this.state.content,
         });
         window.scrollTo(0, 0);
       })
@@ -53,9 +53,9 @@ class SearchResult extends React.Component {
       });
   };
 
-  updateVideos = (redirected_page, searchValue='', created_at_start='', created_at_end='', category='', length='') => {
-    if (searchValue) {
-      this.getVideos(1, searchValue, created_at_start, created_at_end, category, length);
+  updateVideos = (redirected_page, content='', created_at_start='', created_at_end='', category='', duration='') => {
+    if (content) {
+      this.getVideos(1, content, created_at_start, created_at_end, category, duration);
       return;
     }
     this.getVideos(redirected_page);
@@ -73,7 +73,7 @@ class SearchResult extends React.Component {
             <SearchInput searchPage={true} updateVideos={this.updateVideos} />
           </div>
           <div className="col-md-6">
-            <h2>Kết quả cho: {this.state.searchValue} (Trang: {this.state.page})</h2>
+            <h2>Kết quả cho: {this.state.content} (Trang: {this.state.page})</h2>
           </div>
           <div className="col-md-6 right">
             <span className="info">Tổng cộng {this.state.total_sequences} câu trong {this.state.total} videos</span>

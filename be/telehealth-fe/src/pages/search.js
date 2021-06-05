@@ -5,11 +5,11 @@ import SearchResult from "../components/search-result/SearchResult"
 
 const Search = ({ location }) => (
   <Layout>
-    <SearchResult searchValue={location.state.searchValue}
+    <SearchResult content={location.state.content}
                   created_at_start={location.state.created_at_start} 
                   created_at_end={location.state.created_at_end}
                   category={location.state.category}
-                  length={location.state.length}
+                  duration={location.state.duration}
     />
   </Layout>
 )
