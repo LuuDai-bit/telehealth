@@ -25,13 +25,13 @@ class SearchResult extends React.Component {
     }
   }
 
-  getVideos = (page=1, searchValue='') => {
+  getVideos = (page=1, searchValue='', created_at_start='', created_at_end='', category='', length='') => {
     Axios.post(`api/v1/videos/search/${page}/5`, {
       "content": searchValue || this.state.searchValue || '',
-      "created_at_start": this.state.created_at_start,
-      "created_at_end": this.state.created_at_end,
-      "category": this.state.category,
-      "length": this.state.length
+      "created_at_start": created_at_start || this.state.created_at_start,
+      "created_at_end": created_at_end || this.state.created_at_end,
+      "category": category || this.state.category,
+      "length": length || this.state.length
     }, {
       headers: {
         'jwt-token': localStorage.getItem('jwt')
@@ -55,7 +55,7 @@ class SearchResult extends React.Component {
 
   updateVideos = (redirected_page, searchValue='', created_at_start='', created_at_end='', category='', length='') => {
     if (searchValue) {
-      this.getVideos(1, searchValue);
+      this.getVideos(1, searchValue, created_at_start, created_at_end, category, length);
       return;
     }
     this.getVideos(redirected_page);
