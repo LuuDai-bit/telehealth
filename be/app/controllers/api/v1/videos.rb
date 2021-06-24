@@ -39,7 +39,6 @@ module API
           results = []
           page = params[:page].to_i
           per = params[:per].to_i
-          # byebug
           if params[:length].present?
             min_duration = Settings.filter.duration[params[:duration]].start * 60
             max_duration = Settings.filter.duration[params[:duration]].end * 60
@@ -50,7 +49,6 @@ module API
           
           sequences = Sequence.search params[:content], 
                                       fields: [:result],
-                                      highlight: true,
                                       highlight: { tag: "<strong class='highlight'>" }
          
           start_record = page * per + 1
@@ -59,7 +57,6 @@ module API
           video_ids = sequences.each.pluck(:video_id).uniq[start_record..end_record]
           videos = Video.with_ids(video_ids)
                         .with_duration(min_duration, max_duration)
-                        .with_created_at params[:created_at_start], params[:created_at_end]
           if params[:code]
             videos.unshift Video.find_by code: params[:code]
           end

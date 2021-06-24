@@ -114,7 +114,7 @@ class SearchInput extends React.Component {
           </button>
         </div>
         <div className="row">
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <lablel>Chủ đề</lablel>
             <select id="#category" className="form-control" aria-label="Default select example">
               <option value="" selected>Chọn chủ đề</option>
@@ -124,7 +124,7 @@ class SearchInput extends React.Component {
                 })
               }
             </select>
-          </div>
+          </div> */}
           <div className="col-md-6">
             <lablel>Thời lượng</lablel>
             <select className="form-control" 
@@ -136,28 +136,6 @@ class SearchInput extends React.Component {
               <option value="medium">Từ 1 giờ tới 2 giờ</option>
               <option value="long">Trên 2 giờ </option>
             </select>
-          </div>
-          <div className="col-md-12">
-            <lablel>Ngày tạo</lablel>
-            <div>
-              <DatePicker
-                selected={ this.state.created_at_start }
-                onChange={ this.handleCreatedAtStartChange }
-                name="startDate"
-                dateFormat="dd/MM/yyyy"
-                className="inline-input"
-              />
-              <div className="gap inline-input">
-                <p><i className='fas fa-arrow-alt-circle-right'></i></p>
-              </div>
-              <DatePicker
-                selected={ this.state.created_at_end }
-                onChange={ this.handleCreatedAtEndChange }
-                name="startDate"
-                dateFormat="dd/MM/yyyy"
-                className="inline-input"
-              />
-            </div>
           </div>
         </div>
       </div>

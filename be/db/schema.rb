@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_110409) do
+ActiveRecord::Schema.define(version: 2021_06_13_095255) do
 
   create_table "categories", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -28,15 +28,6 @@ ActiveRecord::Schema.define(version: 2021_05_16_110409) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["video_id"], name: "index_sequences_on_video_id"
-  end
-
-  create_table "subtitles", charset: "utf8", force: :cascade do |t|
-    t.string "file_name", null: false
-    t.datetime "deleted_at"
-    t.bigint "video_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["video_id"], name: "index_subtitles_on_video_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -86,7 +77,6 @@ ActiveRecord::Schema.define(version: 2021_05_16_110409) do
   end
 
   add_foreign_key "sequences", "videos"
-  add_foreign_key "subtitles", "videos"
   add_foreign_key "video_categories", "categories"
   add_foreign_key "video_categories", "videos"
   add_foreign_key "videos", "users"
