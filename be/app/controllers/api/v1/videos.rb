@@ -39,7 +39,8 @@ module API
           results = []
           page = params[:page].to_i
           per = params[:per].to_i
-          if params[:length].present?
+
+          if params[:duration].present?
             min_duration = Settings.filter.duration[params[:duration]].start * 60
             max_duration = Settings.filter.duration[params[:duration]].end * 60
           else

@@ -1,8 +1,6 @@
 import React from "react";
 import { navigate } from "gatsby";
 import { toast } from "react-toastify";
-import Axios from "axios";
-import DatePicker from 'react-datepicker';
 
 import "./search-input.scss";
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,15 +13,11 @@ class SearchInput extends React.Component {
     super(props);
 
     this.state = {
-      categories: [],
       content: "",
-      created_at_start: "",
-      created_at_end: "",
-      haha: ""
+      duration: ""
     };
 
-    this.handleCreatedAtStartChange = this.handleCreatedAtStartChange.bind(this);
-    this.handleCreatedAtEndChange = this.handleCreatedAtEndChange.bind(this);
+    this.handleDurationChange = this.handleDurationChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
   }
 
@@ -31,19 +25,16 @@ class SearchInput extends React.Component {
     let content = this.state.content;
     let created_at_start = this.state.created_at_start;
     let created_at_end = this.state.created_at_end;
-    let haha = this.state.haha;
+    let duration = this.state.duration;
     let category = "";
-    console.log(content);
-    if (this.checkBlank(content, created_at_start, created_at_end, category, haha) && !this.props.searchPage) 
+    console.log(duration);
+    if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && !this.props.searchPage) 
       navigate('/search', {state: {
         content: content || this.state.content,
-        duration: haha || this.state.haha,
-        created_at_start: created_at_start || this.state.created_at_start, 
-        created_at_end: created_at_end || this.state.created_at_end,
-        category: category, 
+        duration: duration || this.state.duration
       }});
-    else if (this.checkBlank(content, created_at_start, created_at_end, category, haha) && this.props.searchPage) 
-      this.props.updateVideos(1, content, created_at_start, created_at_end, category, haha);
+    else if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && this.props.searchPage) 
+      this.props.updateVideos(1, content, created_at_start, created_at_end, category, duration);
     else toast.error("Vui lòng điền vào ô search");
   }
 
@@ -51,30 +42,30 @@ class SearchInput extends React.Component {
     return !!(content || (created_at_end && created_at_start) || category || duration);
   }
 
-  getCategories = () => {
-    Axios.get(`api/v1/categories`, {
-      headers: {
-        'jwt-token': localStorage.getItem('jwt')
-      }
-    })
-      .then((response) => {
-        this.setState({
-          categories: response.data
-        });
-        this.forceUpdate();
-      })
-      .catch(function (error) {
-        toast.error(error.message);
-      });
-  }
+  // getCategories = () => {
+  //   Axios.get(`api/v1/categories`, {
+  //     headers: {
+  //       'jwt-token': localStorage.getItem('jwt')
+  //     }
+  //   })
+  //     .then((response) => {
+  //       this.setState({
+  //         categories: response.data
+  //       });
+  //       this.forceUpdate();
+  //     })
+  //     .catch(function (error) {
+  //       toast.error(error.message);
+  //     });
+  // }
 
   componentDidMount() {
-    this.getCategories()
+    // this.getCategories()
   }
 
   handleDurationChange(event) {
     this.setState({
-      haha: event.target.value
+      duration: event.target.value
     });
   }
 
@@ -114,21 +105,10 @@ class SearchInput extends React.Component {
           </button>
         </div>
         <div className="row">
-          {/* <div className="col-md-6">
-            <lablel>Chủ đề</lablel>
-            <select id="#category" className="form-control" aria-label="Default select example">
-              <option value="" selected>Chọn chủ đề</option>
-              {
-                this.state.categories.map((category) => {
-                  return <option key={category.id} value={category.id}>{category.name}</option>
-                })
-              }
-            </select>
-          </div> */}
           <div className="col-md-6">
             <lablel>Thời lượng</lablel>
             <select className="form-control" 
-                    value={this.state.haha}
+                    value={this.state.duration}
                     onChange={this.handleDurationChange.bind(this)}
             >
               <option value="">Chọn khoảng thời gian</option>

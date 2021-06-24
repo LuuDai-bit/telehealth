@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
-import formatDate from '../../common/date-time.js';
+import FormatDate from '../../common/date-time.js';
+import FormatTime from '../../common/format-time.js';
 
 import './video-card.scss';
 
@@ -30,7 +31,9 @@ class VideoCard extends React.Component {
                 </div>
               </div>
               <div className="card-footer">
-                <small className="text-muted">Được cập nhật vào: {formatDate(this.props.video.updated_at)}</small>
+                <small className="text-muted">Thời lượng: { FormatTime(this.props.video.duration) }</small>
+                &nbsp;
+                <small className="text-muted">Được cập nhật vào: { FormatDate(this.props.video.updated_at) }</small>
               </div>
             </div>
           </div>

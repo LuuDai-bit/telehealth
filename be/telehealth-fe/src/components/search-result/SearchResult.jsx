@@ -18,19 +18,14 @@ class SearchResult extends React.Component {
       total_sequences: 0,
       time: 0,
       content: this.props.content || "",
-      created_at_start: this.props.created_at_start || "",
-      created_at_end: this.props.created_at_end || "",
-      category: this.props.category || "",
       duration: this.props.duration || ""
     }
   }
 
-  getVideos = (page=1, content='', created_at_start='', created_at_end='', category='', duration='') => {
+  getVideos = (page=1, content='', duration='') => {
+    console.log('duration ' + duration)
     Axios.post(`api/v1/videos/search/${page}/5`, {
       "content": content || this.state.content || '',
-      "created_at_start": created_at_start || this.state.created_at_start,
-      "created_at_end": created_at_end || this.state.created_at_end,
-      "category": category || this.state.category,
       "duration": duration || this.state.duration
     }, {
       headers: {
@@ -55,7 +50,7 @@ class SearchResult extends React.Component {
 
   updateVideos = (redirected_page, content='', created_at_start='', created_at_end='', category='', duration='') => {
     if (content) {
-      this.getVideos(1, content, created_at_start, created_at_end, category, duration);
+      this.getVideos(1, content, duration);
       return;
     }
     this.getVideos(redirected_page);

@@ -1,4 +1,4 @@
-const formatDate = (date_string) => {
+const FormatDate = (date_string) => {
   let date = new Date(date_string)
   let year = date.getFullYear();
 
@@ -11,4 +11,5 @@ const formatDate = (date_string) => {
   return day + '/' + month + '/' + year;
 }
 
-export default formatDate;
+
+export default FormatDate;
