@@ -14,11 +14,13 @@ class SearchInput extends React.Component {
 
     this.state = {
       content: "",
-      duration: ""
+      duration: "",
+      search_operator: ""
     };
 
     this.handleDurationChange = this.handleDurationChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
+    this.handleSearchOperatorChange = this.handleSearchOperatorChange.bind(this);
   }
 
   search = () => {
@@ -26,15 +28,17 @@ class SearchInput extends React.Component {
     let created_at_start = this.state.created_at_start;
     let created_at_end = this.state.created_at_end;
     let duration = this.state.duration;
+    let search_operator = this.state.search_operator;
     let category = "";
-    console.log(duration);
+    
     if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && !this.props.searchPage) 
       navigate('/search', {state: {
         content: content || this.state.content,
-        duration: duration || this.state.duration
+        duration: duration || this.state.duration,
+        search_operator: search_operator || this.state.search_operator,
       }});
     else if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && this.props.searchPage) 
-      this.props.updateVideos(1, content, created_at_start, created_at_end, category, duration);
+      this.props.updateVideos(1, content, created_at_start, created_at_end, category, duration, search_operator);
     else toast.error("Vui lòng điền vào ô search");
   }
 
@@ -69,22 +73,15 @@ class SearchInput extends React.Component {
     });
   }
 
-  handleCreatedAtStartChange(d) {
-    this.setState({
-      created_at_start: d
-    })
-  }
-
-  handleCreatedAtEndChange(d) {
-    this.setState({
-      created_at_end: d
-    })
-    this.search();
-  }
-
   handleContentChange(d) {
     this.setState({
       content: d.target.value
+    })
+  }
+
+  handleSearchOperatorChange(d) {
+    this.setState({
+      search_operator: d.target.value
     })
   }
 
@@ -93,6 +90,13 @@ class SearchInput extends React.Component {
       <div className="input-group custom-search w-100 d-inline">
         <h2>Tìm kiếm</h2>
         <div className="form-outline">
+          <select className="form-control w-21"
+                  value={this.state.search_operator}
+                  onChange={this.handleSearchOperatorChange.bind(this)}
+          >
+            <option value="and">Cụm từ</option>
+            <option value="or">Từng từ</option>
+          </select>
           <input type="search" 
                  id="#content" 
                  className="form-control search-input" 
@@ -101,7 +105,7 @@ class SearchInput extends React.Component {
                  onChange={this.handleContentChange}
           />
           <button type="button" className="btn btn-primary search-button" onClick={this.search}>
-            Tìm kiếm
+            <i class="fa fa-search"></i>
           </button>
         </div>
         <div className="row">

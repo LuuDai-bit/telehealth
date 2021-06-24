@@ -22,11 +22,11 @@ class SearchResult extends React.Component {
     }
   }
 
-  getVideos = (page=1, content='', duration='') => {
-    console.log('duration ' + duration)
+  getVideos = (page=1, content='', duration='', search_operator='') => {
     Axios.post(`api/v1/videos/search/${page}/5`, {
       "content": content || this.state.content || '',
-      "duration": duration || this.state.duration
+      "duration": duration || this.state.duration,
+      "search_operator": search_operator || this.state.search_operator
     }, {
       headers: {
         'jwt-token': localStorage.getItem('jwt')
@@ -48,9 +48,9 @@ class SearchResult extends React.Component {
       });
   };
 
-  updateVideos = (redirected_page, content='', created_at_start='', created_at_end='', category='', duration='') => {
+  updateVideos = (redirected_page, content='', created_at_start='', created_at_end='', category='', duration='', search_operator='') => {
     if (content) {
-      this.getVideos(1, content, duration);
+      this.getVideos(1, content, duration, search_operator);
       return;
     }
     this.getVideos(redirected_page);

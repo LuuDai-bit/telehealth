@@ -34,6 +34,7 @@ module API
           optional :category, type: String, desc: "the category of the video"
           optional :created_at_start, type: String, desc: "the time video created start"
           optional :created_at_end, type: String, desc: "the time video created end"
+          optional :search_operator, type: String, desc: "the search operator"
         end
         post "/search/:page/:per", root: :videos do
           results = []
@@ -47,8 +48,11 @@ module API
             min_duration = ""
             max_duration = ""
           end
+
+          search_operator = params[:search_operator].blank? ? "and" : params[:search_operator]
           
           sequences = Sequence.search params[:content], 
+                                      operator: search_operator,
                                       fields: [:result],
                                       highlight: { tag: "<strong class='highlight'>" }
          
