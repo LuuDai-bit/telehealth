@@ -23,6 +23,9 @@ class SearchResult extends React.Component {
   }
 
   getVideos = (page=1, content='', duration='', search_operator='') => {
+    let loading_icon = document.getElementById("#loading-icon");
+    loading_icon.style.display = "block";
+
     Axios.post(`api/v1/videos/search/${page}/5`, {
       "content": content || this.state.content || '',
       "duration": duration || this.state.duration,
@@ -45,6 +48,9 @@ class SearchResult extends React.Component {
       })
       .catch(function (error) {
         toast.error(error.message);
+      })
+      .finally(() => {
+        loading_icon.style.display = "none";
       });
   };
 
