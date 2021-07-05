@@ -11,9 +11,9 @@ toast.configure()
 class SearchInput extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
-      content: "",
+      content: this.props.content || "",
       duration: "",
       search_operator: ""
     };
@@ -25,46 +25,22 @@ class SearchInput extends React.Component {
 
   search = () => {
     let content = this.state.content;
-    let created_at_start = this.state.created_at_start;
-    let created_at_end = this.state.created_at_end;
     let duration = this.state.duration;
     let search_operator = this.state.search_operator;
-    let category = "";
     
-    if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && !this.props.searchPage) 
+    if (this.checkBlank(content, duration) && !this.props.searchPage) 
       navigate('/search', {state: {
         content: content || this.state.content,
         duration: duration || this.state.duration,
         search_operator: search_operator || this.state.search_operator,
       }});
-    else if (this.checkBlank(content, created_at_start, created_at_end, category, duration) && this.props.searchPage) 
-      this.props.updateVideos(1, content, created_at_start, created_at_end, category, duration, search_operator);
+    else if (this.checkBlank(content, duration) && this.props.searchPage) 
+      this.props.updateVideos(1, content, duration, search_operator);
     else toast.error("Vui lòng điền vào ô search");
   }
 
-  checkBlank = (content, created_at_start, created_at_end, category, duration) => {
-    return !!(content || (created_at_end && created_at_start) || category || duration);
-  }
-
-  // getCategories = () => {
-  //   Axios.get(`api/v1/categories`, {
-  //     headers: {
-  //       'jwt-token': localStorage.getItem('jwt')
-  //     }
-  //   })
-  //     .then((response) => {
-  //       this.setState({
-  //         categories: response.data
-  //       });
-  //       this.forceUpdate();
-  //     })
-  //     .catch(function (error) {
-  //       toast.error(error.message);
-  //     });
-  // }
-
-  componentDidMount() {
-    // this.getCategories()
+  checkBlank = (content, duration) => {
+    return !!(content || duration);
   }
 
   handleDurationChange(event) {
