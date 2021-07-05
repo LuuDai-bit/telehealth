@@ -64,7 +64,12 @@ class SearchInput extends React.Component {
   render() {
     return (
       <div className="input-group custom-search w-100 d-inline">
-        <h2>Tìm kiếm</h2>
+        <div className="d-flex custom-flex">
+          <h2>Tìm kiếm</h2>
+          <div className="fa-1x">
+            <i id="#loading-icon" className="fa fa-spinner fa-spin" style={{display: 'none'}}></i>
+          </div>
+        </div>
         <div className="form-outline">
           <select className="form-control w-21"
                   value={this.state.search_operator}
