@@ -48,7 +48,7 @@ class SearchResult extends React.Component {
       });
   };
 
-  updateVideos = (redirected_page, content='', created_at_start='', created_at_end='', category='', duration='', search_operator='') => {
+  updateVideos = (redirected_page, content='', duration='', search_operator='') => {
     if (content) {
       this.getVideos(1, content, duration, search_operator);
       return;
@@ -65,7 +65,7 @@ class SearchResult extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-12 border border-secondary rounded">
-            <SearchInput searchPage={true} updateVideos={this.updateVideos} />
+            <SearchInput searchPage={true} updateVideos={this.updateVideos} content={this.props.content} />
           </div>
           <div className="col-md-6">
             <h2>Kết quả cho: {this.state.content} (Trang: {this.state.page})</h2>
